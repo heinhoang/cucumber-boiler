@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.File;
+
 public class Setup {
 
     public static WebDriver driver;
@@ -19,11 +21,16 @@ public class Setup {
         }
         switch (browser) {
             case "chrome":
+                System.setProperty("webdriver.chrome.driver", new File("chromedriver").getAbsolutePath().toString());
+
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("start-maximized");
+                chromeOptions.addArguments("--headless");
                 driver = new ChromeDriver(chromeOptions);
                 break;
             case "firefox":
+                System.setProperty("webdriver.gecko.driver", new File("geckodriver").getAbsolutePath().toString());
+
                 driver = new FirefoxDriver();
                 driver.manage().window().maximize();
                 break;
